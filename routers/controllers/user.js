@@ -83,4 +83,21 @@ const deleteUser = (req, res) => {
       res.status(400).json(err);
     });
 };
-module.exports = { register, login, deleteUser };
+
+//get all user
+const getAllUser = (req, res) => {
+  userModel
+    .find({})
+    .then((result) => {
+      if(result.length !==0 ){
+        res.status(200).json(result);
+      }
+        res.status(400).json("There is no user to show");
+  
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
+module.exports = { register, login, deleteUser,getAllUser};
