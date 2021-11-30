@@ -61,11 +61,11 @@ Get all users router.
           
           
  ### Tasks Routers 
-<br> Tasks Routers only work for user who has exist token.
    * Create task api.
    * Update task api.
    * Delete task api.
    * Get all task api.
    * Get specific task api.
+Tasks Routers only work for user who has exist token.
 
    
