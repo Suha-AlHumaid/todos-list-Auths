@@ -34,10 +34,10 @@ const getTask = (req, res) => {
         taskModel
           .findById({ _id: id })
           .then((result) => {
-            if (result.length !== 0) {
+            if (result.isDele===false) {
               res.status(200).json(result);
             }
-            res.status(400).json("There is no taskes to show");
+            res.status(400).json("There is no taske to show");
           })
           .catch((err) => {
             res.status(400).json(err);
