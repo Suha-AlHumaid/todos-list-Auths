@@ -66,26 +66,35 @@ const login = (req, res) => {
 
 //delete user and his data
 const deleteUser = (req, res) => {
+  // const _id = req.suha._id;
   const { id } = req.params;
+  // userModel.findById({_id}).then(result=>{
+
+
   userModel
-    .findOneAndDelete({ id })
-    .then((result) => {
-      if (result) {
-        taskModel
-          .deleteMany({ user: result._id })
-          .then((result) => {
-            res.status(200).json(result);
-          })
-          .catch((error) => {
-            res.status(400).json(error);
-          });
-      } else {
-        res.status(400).json("there is no user to delete");
-      }
-    })
-    .catch((err) => {
-      res.status(400).json(err);
-    });
+  .findByIdAndDelete({ _id: id })
+  .then((result) => {
+    if (result) {
+      console.log(result);
+      taskModel
+        .deleteMany({ user: result._id })
+        .then((result) => {
+          console.log(result);
+          res.status(200).json(result);
+        })
+        .catch((error) => {
+          res.status(400).json(error);
+        });
+    } else {
+      res.status(400).json("there is no user to delete");
+    }
+  })
+  .catch((err) => {
+    res.status(400).json(err);
+  });
+  // }).catch((error)=>{
+  //   res.status(400).json(error);
+  // })
 };
 
 //get all user
