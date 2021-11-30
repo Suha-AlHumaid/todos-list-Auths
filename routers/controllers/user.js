@@ -1,7 +1,7 @@
 const userModel = require("../../db/models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { options } = require("../routes/role");
+
 require("dotenv").config();
 
 const register = async (req, res) => {
