@@ -98,17 +98,13 @@ const deleteTask = (req, res) => {
                     if(result.isDele == false){
                     res.status(200).json(result);
                   } else {
-                    res.status(404).json("deleted already");
+                    res.status(404).json("Task already deleted");
                   }
                 })
                 .catch((err) => {
                   res.status(400).json(err);
                 });
-            
-            // else {
-            //     res.status(404).json("task already deleted");
-            // }
-   
+
         }).catch((err)=>{
             res.status(400).json(err);
         })
@@ -119,4 +115,36 @@ const deleteTask = (req, res) => {
 
 };
 
-module.exports = { getAlltasks, getTask, addTask, deleteTask };
+////soft delete task
+const updateTask = (req, res) => {
+    try {
+        
+        const id = req.suha._id;
+        const { _id } = req.params;
+        const {task} = req.body;
+        userModel.findById({_id: id}).then(result=>{
+        
+                taskModel
+                .findByIdAndUpdate({ _id },{ task : task})
+                .then((result) => {
+                    console.log(result);
+                    if(result.isDele == false){
+                    res.status(200).json(result);
+                  } else {
+                    res.status(404).json("Task already deleted");
+                  }
+                })
+                .catch((err) => {
+                  res.status(400).json(err);
+                });
+
+        }).catch((err)=>{
+            res.status(400).json(err);
+        })
+      
+    } catch (error) {
+        res.status(400).json(error);
+    }
+
+};
+module.exports = { getAlltasks, getTask, addTask, deleteTask ,updateTask};
