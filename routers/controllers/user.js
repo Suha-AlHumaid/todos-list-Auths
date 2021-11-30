@@ -43,20 +43,19 @@ const login = (req, res) => {
               expiresIn: 60 * 60,
             };
             const token = jwt.sign(
-              { role: result.role ,
-              _id : result._id},
+              { role: result.role, _id: result._id },
               process.env.secert_key,
               options
             );
             res.status(200).json({ result, token });
           } else {
-            res.status(400).json("Invalaid password  or email");
+            res.status(404).json("Invalaid password  or email");
           }
         } else {
-          res.status(400).json("Invalaid password or email");
+          res.status(404).json("Invalaid password or email");
         }
       } else {
-        res.status(400).json("Email does not exist");
+        res.status(404).json("Email does not exist");
       }
     })
     .catch((err) => {
@@ -70,28 +69,27 @@ const deleteUser = (req, res) => {
   const { id } = req.params;
   // userModel.findById({_id}).then(result=>{
 
-
   userModel
-  .findByIdAndDelete({ _id: id })
-  .then((result) => {
-    if (result) {
-      console.log(result);
-      taskModel
-        .deleteMany({ user: result._id })
-        .then((result) => {
-          console.log(result);
-          res.status(200).json(result);
-        })
-        .catch((error) => {
-          res.status(400).json(error);
-        });
-    } else {
-      res.status(400).json("there is no user to delete");
-    }
-  })
-  .catch((err) => {
-    res.status(400).json(err);
-  });
+    .findByIdAndDelete({ _id: id })
+    .then((result) => {
+      if (result) {
+        console.log(result);
+        taskModel
+          .deleteMany({ user: result._id })
+          .then((result) => {
+            console.log(result);
+            res.status(201).json(result);
+          })
+          .catch((error) => {
+            res.status(400).json(error);
+          });
+      } else {
+        res.status(404).json("there is no user to delete");
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
   // }).catch((error)=>{
   //   res.status(400).json(error);
   // })
@@ -105,7 +103,7 @@ const getAllUser = (req, res) => {
       if (result.length !== 0) {
         res.status(200).json(result);
       }
-      res.status(400).json("There is no user to show");
+      res.status(404).json("There is no user to show");
     })
     .catch((err) => {
       res.status(400).json(err);

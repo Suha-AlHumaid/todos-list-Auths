@@ -11,9 +11,9 @@ const getAlltasks = (req, res) => {
       taskModel.find({ user: result._id }).then((result) => {
         const filtered = result.filter((elem) => elem.isDele === false);
         if (filtered.length !== 0) {
-          res.status(200).json(filtered);
+          res.status(201).json(filtered);
         } else {
-          res.status(400).json("There is no tasks to show");
+          res.status(404).json("There is no tasks to show");
         }
       });
     })
@@ -37,13 +37,13 @@ const getTask = (req, res) => {
             if (result.isDele===false) {
               res.status(200).json(result);
             }
-            res.status(400).json("There is no taske to show");
+            res.status(404).json("There is no tasks to show");
           })
           .catch((err) => {
             res.status(400).json(err);
           });
       } else {
-        res.status(400).json("user dose not exist");
+        res.status(404).json("user dose not exist");
       }
     })
     .catch((err) => {
@@ -64,7 +64,7 @@ const addTask = (req, res) => {
           user: result._id,
         });
         newTask.save();
-        res.status(200).json(newTask);
+        res.status(201).json(newTask);
         // userModel.findById({ _id: newTask.user }).then(
         //     result =>{
 
@@ -75,7 +75,7 @@ const addTask = (req, res) => {
         //     }
         // )
       } else {
-        res.status(400).json("user dose not exist");
+        res.status(404).json("user dose not exist");
       }
     });
   } catch {
