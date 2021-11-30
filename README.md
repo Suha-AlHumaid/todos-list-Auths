@@ -1,5 +1,5 @@
 # W08D03
-# Authentication and Authorization API
+# Todos Api with authentication and authorization
 IT's simple todos list project includes signin and register useing bcrybt and jwt. Give only permission for admin to delete or see users information and create custom role. also in this project hashed password used by bcrybt.
 
 ّIndex:
