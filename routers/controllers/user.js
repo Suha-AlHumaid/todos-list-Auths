@@ -1,4 +1,5 @@
 const userModel = require("../../db/models/user");
+const taskModel = require("../../db/models/task");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -38,11 +39,15 @@ const login = (req, res) => {
         if (result.email == savedEmail) {
           const newpass = await bcrypt.compare(password, result.password);
           if (newpass) {
-              const options={
-                expiresIn: 60*60
-              }
-            const token = jwt.sign({ role: result.role }, process.env.secert_key ,options);
-            res.status(200).json({result,token});
+            const options = {
+              expiresIn: 60 * 60,
+            };
+            const token = jwt.sign(
+              { role: result.role },
+              process.env.secert_key,
+              options
+            );
+            res.status(200).json({ result, token });
           } else {
             res.status(400).json("Invalaid password  or email");
           }
@@ -58,4 +63,24 @@ const login = (req, res) => {
     });
 };
 
-module.exports = { register, login };
+//delete user and his data
+const deleteUser = (req, res) => {
+  const { id } = req.params;
+  userModel
+    .findOneAndDelete({ id })
+    .then((result) => {
+      if (result) {
+        taskModel.deleteMany({ user: result._id }).then((result) => {
+          res.status(200).json(result);
+        }).catch((error)=>{
+          res.status(400).json(error)
+        })
+      }else {
+        res.status(400).json("there is no user to delete")
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+module.exports = { register, login, deleteUser };

@@ -4,10 +4,12 @@ const express = require("express");
 const taskRouter = express.Router();
 
 //destructuring
-const { addTask} = require("../controllers/task");
+const {getAlltasks, addTask, deleteTask} = require("../controllers/task");
 
 //controllers
-taskRouter.post("/task", addTask);
+taskRouter.get("/tasks", getAlltasks)
+taskRouter.post("/task/:id", addTask);
+taskRouter.delete("/task/:id", deleteTask);
 
 
 module.exports = taskRouter;

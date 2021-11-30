@@ -7,7 +7,11 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Role',
     required: true
- }
+ },
+//  tasks: [{
+//   type: mongoose.Schema.Types.ObjectId,
+//   ref: 'Task'
+// }]
 },
 {timestamps: true});
 
