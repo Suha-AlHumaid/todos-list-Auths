@@ -3,6 +3,7 @@
 IT's simple todos list project includes signin and register useing bcrybt and jwt. Give only permission for admin to delete or see users information and create custom role. also in this project hashed password used by bcrybt.
 
 ّIndex:
+* [Instructions](#Instructions)
 * [Technologies](#technologies)
 * [Schemas](#Schemas)
 * [Routers](#Routers)
@@ -30,21 +31,21 @@ secert_key=any secrt value
 
 ## Schemas:
  * Role schema
-      contains this information: role and permessions
+    <br>  contains this information: role and permessions
  * user schema
-     contains this information: email , password and role
+   <br>  contains this information: email , password and role
   * Task schema
-     contains this information: email , password and role
+    <br> contains this information: email , password and role
 
  ## Routers:
  1- Role Routers
 
  * Create role api
-      -To create new user role like: admin and user.
+      <br> To create new user role like: admin and user.
       only admin can create a role
       
  * Get all role api
-      - List all roles in the DB like: Admin and user.
+      <br> List all roles in the DB like: Admin and user.
       only admin can see rools
 
         
@@ -59,8 +60,8 @@ Get all users router.
 <br> only work for admin who has exist token.
           
           
- 2- Tasks Routers 
-Tasks Routers only work for user who has exist token.
+ 3- Tasks Routers 
+<br> Tasks Routers only work for user who has exist token.
    * Create task api.
    * Update task api.
    * Delete task api.
