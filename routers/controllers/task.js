@@ -83,21 +83,40 @@ const addTask = (req, res) => {
   }
 };
 
-//hard delete task
+//soft delete task
 const deleteTask = (req, res) => {
-  const id = req.suha._id;
-  taskModel
-    .findOneAndDelete({ id })
-    .then((result) => {
-      if (result) {
-        res.status(200).json(result);
-      } else {
-        res.status(404).json("not found");
-      }
-    })
-    .catch((err) => {
-      res.status(400).json(err);
-    });
+    try {
+        
+        const id = req.suha._id;
+        const { _id } = req.params;
+        userModel.findById({_id: id}).then(result=>{
+        
+                taskModel
+                .findByIdAndUpdate({ _id },{isDele:true})
+                .then((result) => {
+                    console.log(result);
+                    if(result.isDele == false){
+                    res.status(200).json(result);
+                  } else {
+                    res.status(404).json("deleted already");
+                  }
+                })
+                .catch((err) => {
+                  res.status(400).json(err);
+                });
+            
+            // else {
+            //     res.status(404).json("task already deleted");
+            // }
+   
+        }).catch((err)=>{
+            res.status(400).json(err);
+        })
+      
+    } catch (error) {
+        res.status(400).json(error);
+    }
+
 };
 
 module.exports = { getAlltasks, getTask, addTask, deleteTask };

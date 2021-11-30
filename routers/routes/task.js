@@ -14,7 +14,7 @@ const {getAlltasks,getTask, addTask, deleteTask} = require("../controllers/task"
 taskRouter.get("/tasks", authentication,getAlltasks);
 taskRouter.get("/task/:id", authentication,  getTask);
 taskRouter.post("/task", authentication,  addTask);
-taskRouter.delete("/task", authentication, deleteTask);
+taskRouter.delete("/task/:_id", authentication, deleteTask);
 
 
 module.exports = taskRouter;
