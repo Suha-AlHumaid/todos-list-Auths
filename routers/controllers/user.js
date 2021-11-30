@@ -43,7 +43,8 @@ const login = (req, res) => {
               expiresIn: 60 * 60,
             };
             const token = jwt.sign(
-              { role: result.role },
+              { role: result.role ,
+              _id : result._id},
               process.env.secert_key,
               options
             );
@@ -70,13 +71,16 @@ const deleteUser = (req, res) => {
     .findOneAndDelete({ id })
     .then((result) => {
       if (result) {
-        taskModel.deleteMany({ user: result._id }).then((result) => {
-          res.status(200).json(result);
-        }).catch((error)=>{
-          res.status(400).json(error)
-        })
-      }else {
-        res.status(400).json("there is no user to delete")
+        taskModel
+          .deleteMany({ user: result._id })
+          .then((result) => {
+            res.status(200).json(result);
+          })
+          .catch((error) => {
+            res.status(400).json(error);
+          });
+      } else {
+        res.status(400).json("there is no user to delete");
       }
     })
     .catch((err) => {
@@ -89,15 +93,14 @@ const getAllUser = (req, res) => {
   userModel
     .find({})
     .then((result) => {
-      if(result.length !==0 ){
+      if (result.length !== 0) {
         res.status(200).json(result);
       }
-        res.status(400).json("There is no user to show");
-  
+      res.status(400).json("There is no user to show");
     })
     .catch((err) => {
       res.status(400).json(err);
     });
 };
 
-module.exports = { register, login, deleteUser,getAllUser};
+module.exports = { register, login, deleteUser, getAllUser };
