@@ -38,7 +38,7 @@ secert_key=any secrt value
     <br> contains this information: email , password and role
 
  ## Routers:
- 1- Role Routers
+### Role Routers
 
  * Create role api
       <br> To create new user role like: admin and user.
@@ -49,7 +49,7 @@ secert_key=any secrt value
       only admin can see rools
 
         
- 2- User Routers
+ ### User Routers
    * Register api: 
 Create new user with particuler role (email , passsword , role). Password hashed by bcrypt.
    * Login api: <br>
@@ -60,7 +60,7 @@ Get all users router.
 <br> only work for admin who has exist token.
           
           
- 3- Tasks Routers 
+ ### Tasks Routers 
 <br> Tasks Routers only work for user who has exist token.
    * Create task api.
    * Update task api.
