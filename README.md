@@ -51,10 +51,12 @@ secert_key=any secrt value
  2- User Routers
    * Register api: 
 Create new user with particuler role (email , passsword , role). Password hashed by bcrypt.
-   * Login api
+   * Login api: <br>
 Login user via compare email and password that enters by user with email and hashed password (by bcrypt). Also get exist token validation which finsh in 60 minuts.
-   * Delete user api.  only work for admin who has exist token.
-Get all users router. only work for admin who has exist token.
+   * Delete user api. 
+   <br> only work for admin who has exist token.
+Get all users router.
+<br> only work for admin who has exist token.
           
           
  2- Tasks Routers 
