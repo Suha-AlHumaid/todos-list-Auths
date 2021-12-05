@@ -1,4 +1,3 @@
-// addTask
 
 const express = require("express");
 const taskRouter = express.Router();
@@ -10,13 +9,14 @@ const authentication = require("../auth/authentication");
 const authorization = require("../auth/authorization");
 
 //destructuring
-const {getAlltasks,getTask, addTask, deleteTask,updateTask} = require("../controllers/task");
+const {getAlltasks,getTask, addTask, deleteTask,updateTask,deleteTaskByAdmin, getAlltasksByAdmin} = require("../controllers/task");
 
 //controllers
-taskRouter.get("/tasks", authentication,getAlltasks);
+taskRouter.get("/tasks", authentication ,getAlltasks);
 taskRouter.get("/task/:id", authentication,  getTask);
 taskRouter.post("/task", authentication,  addTask);
 taskRouter.delete("/task/:_id", authentication, deleteTask);
 taskRouter.put("/task/:_id", authentication, updateTask);
-
+taskRouter.delete("/taskByAdmin/:_id", authentication,authorization, deleteTaskByAdmin);
+taskRouter.get("/tasksByAdmin/:_id", authentication,authorization, getAlltasksByAdmin);
 module.exports = taskRouter;

@@ -6,8 +6,9 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const register = async (req, res) => {
+  
   const { email, password, role } = req.body;
-
+  console.log(email, password, role );
   const savedEmail = email.toLowerCase();
   const SALT = Number(process.env.SALT);
   const hashedPass = await bcrypt.hash(password, SALT);
@@ -21,10 +22,15 @@ const register = async (req, res) => {
   newUser
     .save()
     .then((result) => {
-      res.status(200).json(result);
+      if(result) {
+        res.status(201).json(result);
+      }else {
+        res.status(404).json({message:"faild"});
+      }
+    
     })
     .catch((err) => {
-      res.status(400).json(err);
+      res.status(400).json({message:"faild"});
     });
 };
 
@@ -70,7 +76,7 @@ const deleteUser = (req, res) => {
   // userModel.findById({_id}).then(result=>{
 
   userModel
-    .findByIdAndDelete({ _id: id })
+    .findByIdAndDelete(id)
     .then((result) => {
       if (result) {
         console.log(result);
@@ -90,9 +96,7 @@ const deleteUser = (req, res) => {
     .catch((err) => {
       res.status(400).json(err);
     });
-  // }).catch((error)=>{
-  //   res.status(400).json(error);
-  // })
+
 };
 
 //get all user

@@ -9,7 +9,7 @@ const authorization = async(req, res, next) => {
         if(result.role === "admin"){
             next();
         }else{
-            res.status(403).json("forbidden")
+            res.status(403).json({message:"forbidden"})
         }
     } catch (err) {
         res.status(403).json(err);
