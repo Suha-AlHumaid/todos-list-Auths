@@ -188,16 +188,17 @@ const getAlltasksByAdmin = (req, res) => {
 try {
     const id = req.suha._id; //admin id
     const { _id } = req.params; //user id
-    const { task_id } = req.body; // task id
+    // const { task_id } = req.body; // task id
     userModel
       .findById(_id)
       .then((result) => {
         //user found
-        console.log(result);
+
         if(result){
           taskModel
-          .find({isDelefalse})
+          .find({user:_id,isDele:false})
           .then((result) => {
+        
             //tasks found
             if(result){
               res.status(201).json(result);
