@@ -32,10 +32,44 @@ secert_key=any secrt value
 ## Schemas:
  * Role schema
     <br>  contains this information: role and permessions
+    ```
+    const roleSchema = new mongoose.Schema({
+  role: { type: String , required: true },
+  permissions: { type: Array ,required: true},
+},
+{timestamps: true});
+    ```
  * user schema
    <br>  contains this information: email , password and role
+  
+  ```const userSchema = new mongoose.Schema({
+  email: { type: String, required: true,unique: true },
+  password: { type: String, required: true },
+  role: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Role',
+    required: true
+ },{timestamps: true});
+   ```
   * Task schema
     <br> contains this information: email , password and role
+
+  ```const taskSchema = new mongoose.Schema({
+  task: { type: String, required: true },
+  isDele: { type: Boolean, default: false, required: true },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  
+ }
+},
+{timestamps: true});
+```
+
+## Entity Relationship Diagram
+![entity relationship diagram](https://github.com/Suha-AlHumaid/W08D03/blob/main/img/r%20digram.jpg)
+
 
  ## Routers:
 ### Role Routers
