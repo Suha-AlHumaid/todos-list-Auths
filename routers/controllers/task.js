@@ -96,7 +96,7 @@ const deleteTask = (req, res) => {
       .findById({ _id: id })
       .then((result) => {
         taskModel
-          .findOneAndUpdate({ _id, isDele: false }, { isDele: true })
+          .findOneAndUpdate({ _id, isDele: false }, { isDele: true },{new:true})
           .then((result) => {
             console.log(result);
             if (result) {
@@ -151,7 +151,7 @@ const deleteTaskByAdmin = (req, res) => {
   try {
     const id = req.suha._id; //admin id
     const { _id } = req.params; //user id
-    const { task_id } = req.body; // task id
+    const { task_id } = req.query; // task id
     userModel
       .findById(_id)
       .then((result) => {
@@ -178,6 +178,7 @@ const deleteTaskByAdmin = (req, res) => {
     
       })
       .catch((err) => {
+        
         res.status(400).json(err);
       });
   } catch (error) {
